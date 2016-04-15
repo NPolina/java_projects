@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 
-public class ContactCreationTests {
+public class ContactCreationTests extends TestBase {
     FirefoxDriver wd;
     
     @BeforeMethod
