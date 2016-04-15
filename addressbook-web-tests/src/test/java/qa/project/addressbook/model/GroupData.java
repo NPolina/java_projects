@@ -1,4 +1,4 @@
-package qa.project.addressbook;
+package qa.project.addressbook.model;
 
 public class GroupData {
     private final String name;
