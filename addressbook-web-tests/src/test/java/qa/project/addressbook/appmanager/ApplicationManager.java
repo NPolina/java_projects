@@ -9,9 +9,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by user on 15.04.2016.
  */
-public class ApplicationManager extends ContactHelper {
+public class ApplicationManager {
     FirefoxDriver wd;
 
+    private ContactHelper contactHelper;
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
@@ -31,11 +32,10 @@ public class ApplicationManager extends ContactHelper {
         wd.get("http://localhost/addressbook/group.php");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
+        contactHelper = new ContactHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
     }
-
-
 
     public void stop() {
         wd.quit();
@@ -47,5 +47,9 @@ public class ApplicationManager extends ContactHelper {
 
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+
+    public ContactHelper getContactHelper() {
+        return contactHelper;
     }
 }
