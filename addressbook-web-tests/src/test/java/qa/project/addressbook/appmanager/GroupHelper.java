@@ -2,7 +2,6 @@ package qa.project.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import qa.project.addressbook.model.GroupData;
 
 /**
