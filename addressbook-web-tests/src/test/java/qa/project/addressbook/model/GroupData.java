@@ -1,9 +1,6 @@
 package qa.project.addressbook.model;
 
 public class GroupData {
-    public void setId(int id) {
-        this.id = id;
-    }
 
     private int id;
     private final String name;
@@ -34,6 +31,10 @@ public class GroupData {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

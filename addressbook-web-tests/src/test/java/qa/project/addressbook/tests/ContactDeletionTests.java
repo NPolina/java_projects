@@ -4,25 +4,31 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
 
+import java.util.List;
+
 /**
  * Created by user on 16.04.2016.
  */
 public class ContactDeletionTests extends TestBase {
 
     @Test
-    public void testContactDeletion(){
+    public void testContactDeletion() throws InterruptedException {
         app.getNavigationHelper().gotoHome();
-        int before = app.getContactHelper().getContactCount();
         if(! app.getContactHelper().isThereAContact()){
             app.getContactHelper().createContact(new ContactData("Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", "test1"));
         }
-        app.getContactHelper().selectContact();
+        List<ContactData> before = app.getContactHelper().getContactList();
+        app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().submitContactDeletion();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before - 1);
+        Thread.sleep(5000);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() - 1);
+
+        before.remove(before.size() - 1);
+        Assert.assertEquals(before, after);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testContactsDeletionAll(){
         app.getNavigationHelper().gotoHome();
         app.getContactHelper().selectAllContacts();

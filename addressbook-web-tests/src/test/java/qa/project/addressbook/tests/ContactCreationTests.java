@@ -5,19 +5,24 @@ import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
 import qa.project.addressbook.model.GroupData;
 
+import java.util.Comparator;
+import java.util.List;
+
 public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() {
-        int before = app.getContactHelper().getContactCount();
+
         if(! app.getGroupHelper().isThereAGroup()){
             app.getNavigationHelper().gotoGroupPage();
             app.getGroupHelper().createGroup(new GroupData("test1", "test2", null));
         }
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().gotoAddContactPage();
-        app.getContactHelper().createContact(new ContactData("Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", "test1"));
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after, before + 1);
+        ContactData contact = new ContactData("Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", "test1");
+        app.getContactHelper().createContact(contact);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size() + 1);
     }
 
 }

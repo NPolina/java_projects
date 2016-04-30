@@ -3,10 +3,14 @@ package qa.project.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import qa.project.addressbook.model.ContactData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 16.04.2016.
@@ -41,8 +45,8 @@ public class ContactHelper extends HelperBase{
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void selectAllContacts() {
@@ -78,4 +82,17 @@ public class ContactHelper extends HelperBase{
     }
 
 
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for(WebElement element : elements){
+            String name = element.findElement(By.xpath(".//td[2]")).getText();
+            String lastname = element.findElement(By.xpath(".//td[3]")).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+            ContactData contact = new ContactData(id, name, lastname, null, null, null);
+            contacts.add(contact);
+        }
+
+        return contacts;
+    }
 }
