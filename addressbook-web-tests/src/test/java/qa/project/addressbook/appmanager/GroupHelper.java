@@ -11,16 +11,16 @@ import java.util.List;
 /**
  * Created by user on 15.04.2016.
  */
-public class GroupHelper extends HelperBase{
+public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver wd) {
         super(wd);
     }
 
     public void returnToGroupPage() {
-        if(isElementPresent(By.tagName("h1"))
+        if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
-                && isElementPresent(By.name("submit"))){
+                && isElementPresent(By.name("submit"))) {
             return;
         }
         click(By.linkText("group page"));
@@ -57,10 +57,18 @@ public class GroupHelper extends HelperBase{
     }
 
     public void createGroup(GroupData group) {
-       initGroupCreation();
-       fillGroupForm(group);
-       submitGroupCreation();
-       returnToGroupPage();
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returnToGroupPage();
+    }
+
+    public void modifyGroup(int index, GroupData group) {
+        selectGroup(index);
+        initGroupModification();
+        fillGroupForm(group);
+        submitGroupModification();
+        returnToGroupPage();
     }
 
     public boolean isThereAGroup() {
@@ -74,7 +82,7 @@ public class GroupHelper extends HelperBase{
     public List<GroupData> getGroupList() {
         List<GroupData> groups = new ArrayList<GroupData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
-        for(WebElement element : elements){
+        for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             GroupData group = new GroupData(id, name, null, null);
