@@ -1,6 +1,7 @@
 package qa.project.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
 
@@ -12,12 +13,16 @@ import java.util.List;
  */
 public class ContactModificationTests extends TestBase {
 
-    @Test(enabled = false)
-    public void testContactModification(){
+    @BeforeMethod
+    private void ensurePreconditions() {
         app.goTo().gotoHome();
         if(! app.getContactHelper().isThereAContact()){
             app.getContactHelper().createContact(new ContactData("Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", "test1"));
         }
+    }
+
+    @Test
+    public void testContactModification(){
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContactToEdit(before.size() - 1);
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", null);

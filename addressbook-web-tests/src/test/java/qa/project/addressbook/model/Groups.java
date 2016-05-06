@@ -32,7 +32,7 @@ public class Groups extends ForwardingSet<GroupData> {
 
     public Groups without(GroupData group){
         Groups groups = new Groups(this);
-        groups.add(group);
+        groups.remove(group);
         return groups;
     }
 }
