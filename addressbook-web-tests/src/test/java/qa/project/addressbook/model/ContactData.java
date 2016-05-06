@@ -3,10 +3,10 @@ package qa.project.addressbook.model;
 public class ContactData {
 
     private int id;
-    private final String firstname;
-    private final String lastname;
-    private final String phone;
-    private final String email;
+    private String firstname;
+    private String lastname;
+    private String phone;
+    private String email;
     private String group;
 
     public ContactData(int id, String firstname, String lastname, String phone, String email, String group) {

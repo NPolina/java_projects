@@ -14,31 +14,30 @@ public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
-        app.goTo().gotoHome();
-        if(! app.getContactHelper().isThereAContact()){
-            app.getContactHelper().createContact(new ContactData("Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", "test1"));
+        app.goTo().homePage();
+        if(app.contact().list().size() == 0){
+            app.contact().create(new ContactData("Nazarova", "Polina", "373112233", "nazarova.polina@gmail.com", "test1"));
         }
     }
 
     @Test
     public void testContactDeletion() throws InterruptedException {
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().submitContactDeletion();
-        Thread.sleep(5000);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().list();
+        int index = before.size() - 1;
+        app.contact().delete(index);
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size() - 1);
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         Assert.assertEquals(before, after);
     }
 
     @Test(enabled = false)
     public void testContactsDeletionAll(){
-        app.goTo().gotoHome();
-        app.getContactHelper().selectAllContacts();
-        app.getContactHelper().submitContactDeletion();
-        int after = app.getContactHelper().getContactCount();
+        app.goTo().homePage();
+        app.contact().selectAllContacts();
+        app.contact().submitContactDeletion();
+        int after = app.contact().getContactCount();
         Assert.assertEquals(after, 0);
     }
 }
