@@ -1,11 +1,17 @@
 package qa.project.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
+import qa.project.addressbook.model.Contacts;
 
 import java.util.List;
+
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by user on 16.04.2016.
@@ -15,7 +21,7 @@ public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().homePage();
-        if(app.contact().list().size() == 0){
+        if(app.contact().all().size() == 0){
             app.contact().create(new ContactData().
                     withFirstname("Nazarova").withLastname("Polina").withPhone("373112233").withEmail("nazarova.polina@gmail.com").withGroup("test1"));
         }
@@ -23,14 +29,13 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() throws InterruptedException {
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
-        app.contact().delete(index);
-        List<ContactData> after = app.contact().list();
-        Assert.assertEquals(after.size(), before.size() - 1);
+        Contacts before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().delete(deletedContact);
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size() - 1);
+        assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
 
-        before.remove(index);
-        Assert.assertEquals(before, after);
     }
 
     @Test(enabled = false)
@@ -39,6 +44,6 @@ public class ContactDeletionTests extends TestBase {
         app.contact().selectAllContacts();
         app.contact().submitContactDeletion();
         int after = app.contact().getContactCount();
-        Assert.assertEquals(after, 0);
+        assertEquals(after, 0);
     }
 }
