@@ -37,11 +37,11 @@ public class ContactPhoneTests extends TestBase {
     private String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getPhoneHome(), contact.getPhoneMobile(), contact.getPhoneWork())
                 .stream().filter((s) -> ! s.equals(""))
-                .map(ContactPhoneTests::clenead)
+                .map(ContactPhoneTests::cleaned)
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String clenead(String phone){
+    public static String cleaned(String phone){
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 }

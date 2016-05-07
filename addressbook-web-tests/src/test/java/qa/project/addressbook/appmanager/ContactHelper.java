@@ -28,6 +28,7 @@ public class ContactHelper extends HelperBase{
         type(By.name("email"),contactData.getFirstEmail());
         type(By.name("email2"),contactData.getSecondEmail());
         type(By.name("email3"),contactData.getThirdEmail());
+        type(By.name("address"),contactData.getAddress());
 
         if(creation){
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -108,10 +109,12 @@ public class ContactHelper extends HelperBase{
         for(WebElement element : elements){
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             String firstname = element.findElement(By.xpath(".//td[3]")).getText();
+            String address = element.findElement(By.xpath(".//td[4]")).getText();
             String allmails = element.findElement(By.xpath(".//td[5]")).getText();
             String allphones = element.findElement(By.xpath(".//td[6]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).withAllPhones(allphones).withAllEmails(allmails));
+            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
+                    .withAddress(address).withAllPhones(allphones).withAllEmails(allmails));
         }
         return contacts;
     }
@@ -126,9 +129,10 @@ public class ContactHelper extends HelperBase{
         String firstEmail = wd.findElement(By.name("email")).getAttribute("value");
         String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
         String thirdEmail = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getText();
         wd.navigate().back();
         return new ContactData().
-                withFirstname(firstname).withLastname(lasttname)
+                withFirstname(firstname).withLastname(lasttname).withAddress(address)
                 .withHomePhone(home_phone).withPhone(mobile_phone).withWorkPhone(work_phone)
                 .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
 

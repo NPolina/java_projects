@@ -35,17 +35,17 @@ public class ContactEmailTests extends TestBase {
         ContactData contact  = app.contact().all().iterator().next();
         ContactData contactEmailFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat(mergeEmails(contactEmailFromEditForm), equalTo(contact.getEmails()));
+        assertThat(contact.getEmails(), equalTo(mergeEmails(contactEmailFromEditForm)));
     }
 
     private String mergeEmails(ContactData contact){
         return Arrays.asList(contact.getFirstEmail(), contact.getSecondEmail(), contact.getThirdEmail())
                 .stream().filter((s) -> ! s.equals(""))
-                .map(ContactEmailTests::clenead)
+                .map(ContactEmailTests::cleaned)
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String clenead(String email){
+    public static String cleaned(String email){
         return email.replaceAll("\\s", "");
     }
 
