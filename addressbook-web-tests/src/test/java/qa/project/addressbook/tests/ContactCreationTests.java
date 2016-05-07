@@ -29,7 +29,7 @@ public class ContactCreationTests extends TestBase {
         Contacts before = app.contact().all();
         app.goTo().addContactPage();
         ContactData contact = new ContactData()
-                .withFirstname("Nazarova").withLastname("Polina").withPhone("0373112233").withEmail("nazarova.polina@gmail.com").withGroup("test1");
+                .withFirstname("Nazarova").withLastname("Polina").withHomePhone("111").withPhone("222").withWorkPhone("333").withEmail("nazarova.polina@gmail.com").withGroup("test1");
         app.contact().create(contact);
         Contacts after = app.contact().all();
         assertThat(after.size(), equalTo(before.size() + 1));

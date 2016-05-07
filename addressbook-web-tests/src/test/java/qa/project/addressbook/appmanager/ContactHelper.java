@@ -1,16 +1,13 @@
 package qa.project.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import qa.project.addressbook.model.ContactData;
 import qa.project.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +22,9 @@ public class ContactHelper extends HelperBase{
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"),contactData.getFirstname());
         type(By.name("lastname"),contactData.getLastname());
-        type(By.name("mobile"),contactData.getPhone());
+        type(By.name("home"),contactData.getPhone_home());
+        type(By.name("mobile"),contactData.getPhone_mobile());
+        type(By.name("work"),contactData.getPhone_work());
         type(By.name("email"),contactData.getEmail());
 
         if(creation){
@@ -35,7 +34,7 @@ public class ContactHelper extends HelperBase{
         }
     }
 
-    public void gotoHomePage() {
+    public void returnHomePage() {
         if(isElementPresent(By.id("maintable"))){
             return;
         }
@@ -67,13 +66,12 @@ public class ContactHelper extends HelperBase{
     public void create(ContactData contact) {
         fillContactForm(contact, true);
         submitAddContact();
-        gotoHomePage();
+        returnHomePage();
     }
 
     public void selectContactToEdit(int id) {
         WebElement checkbox = wd.findElement(By.id("" + id));
         checkbox.findElement(By.xpath("//img[@title='Edit']")).click();
-        //wd.findElement(By.xpath("(//img[@title='Edit'])["+ index + "]")).click();
     }
 
     public void selectContactById(int id){
@@ -84,7 +82,7 @@ public class ContactHelper extends HelperBase{
         selectContactToEdit(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
-        gotoHomePage();
+        returnHomePage();
     }
 
     public void delete(ContactData contact) throws InterruptedException {
@@ -108,9 +106,24 @@ public class ContactHelper extends HelperBase{
         for(WebElement element : elements){
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             String firstname = element.findElement(By.xpath(".//td[3]")).getText();
+            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
+                    .withHomePhone(phones[0]).withPhone(phones[1]).withWorkPhone(phones[2]));
         }
         return contacts;
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        selectContactToEdit(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lasttname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home_phone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile_phone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work_phone = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().
+                withFirstname(firstname).withLastname(lasttname).withHomePhone(home_phone).withPhone(mobile_phone).withWorkPhone(work_phone);
+
     }
 }
