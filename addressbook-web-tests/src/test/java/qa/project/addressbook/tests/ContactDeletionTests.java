@@ -1,14 +1,10 @@
 package qa.project.addressbook.tests;
 
 import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
 import qa.project.addressbook.model.Contacts;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.testng.Assert.assertEquals;
@@ -24,7 +20,7 @@ public class ContactDeletionTests extends TestBase {
         if(app.contact().all().size() == 0){
             app.goTo().addContactPage();
             app.contact().create(new ContactData().
-                    withFirstname("Nazarova").withLastname("Polina").withPhone("373112233").withEmail("nazarova.polina@gmail.com").withGroup("test1"));
+                    withFirstname("Nazarova").withLastname("Polina").withPhone("373112233").withFirstEmail("nazarova.polina@gmail.com").withGroup("test1"));
         }
     }
 
