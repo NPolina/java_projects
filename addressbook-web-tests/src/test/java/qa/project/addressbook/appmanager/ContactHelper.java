@@ -22,9 +22,9 @@ public class ContactHelper extends HelperBase{
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"),contactData.getFirstname());
         type(By.name("lastname"),contactData.getLastname());
-        type(By.name("home"),contactData.getPhone_home());
-        type(By.name("mobile"),contactData.getPhone_mobile());
-        type(By.name("work"),contactData.getPhone_work());
+        type(By.name("home"),contactData.getPhoneHome());
+        type(By.name("mobile"),contactData.getPhoneMobile());
+        type(By.name("work"),contactData.getPhoneWork());
         type(By.name("email"),contactData.getEmail());
 
         if(creation){
@@ -106,10 +106,9 @@ public class ContactHelper extends HelperBase{
         for(WebElement element : elements){
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             String firstname = element.findElement(By.xpath(".//td[3]")).getText();
-            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            String allphones = element.findElement(By.xpath(".//td[6]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-                    .withHomePhone(phones[0]).withPhone(phones[1]).withWorkPhone(phones[2]));
+            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname).withAllPhones(allphones));
         }
         return contacts;
     }

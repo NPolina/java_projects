@@ -10,6 +10,16 @@ public class ContactData {
     private String phone_work;
     private String email;
     private String group;
+    private String phones;
+
+    public String getPhones() {
+        return phones;
+    }
+
+    public ContactData withAllPhones(String phones) {
+        this.phones = phones;
+        return this;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -19,7 +29,7 @@ public class ContactData {
         return lastname;
     }
 
-    public String getPhone_mobile() {
+    public String getPhoneMobile() {
         return phone_mobile;
     }
 
@@ -33,9 +43,9 @@ public class ContactData {
         return id;
     }
 
-    public String getPhone_home() { return phone_home; }
+    public String getPhoneHome() { return phone_home; }
 
-    public String getPhone_work() { return phone_work; }
+    public String getPhoneWork() { return phone_work; }
 
     public ContactData withId(int id) {
         this.id = id;

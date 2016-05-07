@@ -1,10 +1,11 @@
 package qa.project.addressbook.tests;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -30,12 +31,17 @@ public class ContactPhoneTests extends TestBase {
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat(contact.getPhone_home(), equalTo(clenead(contactFromEditForm.getPhone_home())));
-        assertThat(contact.getPhone_mobile(), equalTo(clenead(contactFromEditForm.getPhone_mobile())));
-        assertThat(contact.getPhone_work(), equalTo(clenead(contactFromEditForm.getPhone_work())));
+        assertThat(contact.getPhones(), equalTo(mergePhones(contactFromEditForm)));
     }
 
-    public String clenead(String phone){
+    private String mergePhones(ContactData contact) {
+        return Arrays.asList(contact.getPhoneHome(), contact.getPhoneMobile(), contact.getPhoneWork())
+                .stream().filter((s) -> ! s.equals(""))
+                .map(ContactPhoneTests::clenead)
+                .collect(Collectors.joining("\n"));
+    }
+
+    public static String clenead(String phone){
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 }
