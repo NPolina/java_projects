@@ -137,4 +137,49 @@ public class ContactHelper extends HelperBase{
                 .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
 
     }
+
+    public ContactData infoContactDetails(ContactData contact) {
+        String infoContact;
+        String content;
+        viewContactInformationById(contact.getId());
+        content = wd.findElement(By.xpath(".//div[@id='content']")).getText();
+        if(isElementPresent(By.xpath(".//i"))){
+            String group = wd.findElement(By.xpath(".//i")).getText();
+            infoContact = content.replace(group, "");
+        }
+        else {
+            infoContact = content;
+        }
+        wd.navigate().back();
+        return new ContactData().withDetailsInfo(infoContact);
+
+    }
+
+    public void viewContactInformationById(int id) {
+        WebElement element = wd.findElement(By.id("" + id));
+        element.findElement(By.xpath("//img[@title='Details']")).click();
+    }
+
+    public void modifyContactDetails(){
+        wd.findElement(By.name("modifiy")).click();
+    }
+
+    public ContactData modifyDetailsInfoForm(ContactData contact) {
+        viewContactInformationById(contact.getId());
+        modifyContactDetails();
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lasttname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home_phone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile_phone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work_phone = wd.findElement(By.name("work")).getAttribute("value");
+        String firstEmail = wd.findElement(By.name("email")).getAttribute("value");
+        String secondEmail = wd.findElement(By.name("email2")).getAttribute("value");
+        String thirdEmail = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getText();
+        wd.navigate().back();
+        return new ContactData().
+                withFirstname(firstname).withLastname(lasttname).withAddress(address)
+                .withHomePhone(home_phone).withPhone(mobile_phone).withWorkPhone(work_phone)
+                .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
+    }
 }
