@@ -49,5 +49,7 @@ public class ContactInformationTests extends TestBase {
                 .collect(Collectors.joining(""));
     }
 
+    public static String cleaned(String infoContact){
+        return infoContact.replaceAll("\\s", "").replaceAll("[-:()HMW]", "");
     }
 }
