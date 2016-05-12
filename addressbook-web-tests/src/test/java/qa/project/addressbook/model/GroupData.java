@@ -12,6 +12,15 @@ public class GroupData {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "name='" + name + '\'' +
+                ", header='" + header + '\'' +
+                ", footer='" + footer + '\'' +
+                '}';
+    }
+
     public GroupData withId(int id) {
         this.id = id;
         return this;
@@ -64,11 +73,4 @@ public class GroupData {
         return footer;
     }
 
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
