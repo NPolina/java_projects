@@ -4,7 +4,7 @@
     <lastname>Lastname 0</lastname>
     <phone__home>+373(22) 11-22-33-0</phone__home>
     <phone__work>111 222 33 0</phone__work>
-    <secondEmail>test.test0@gmail.com</secondEmail>
+    <firstEmail>test.test0@gmail.com</firstEmail>
     <thirdEmail>test0@gmail.com</thirdEmail>
     <address>Street-street 12/3, b.0</address>
     <group>test 0</group>
@@ -14,7 +14,7 @@
     <lastname>Lastname 1</lastname>
     <phone__home>+373(22) 11-22-33-1</phone__home>
     <phone__work>111 222 33 1</phone__work>
-    <secondEmail>test.test1@gmail.com</secondEmail>
+    <firstEmail>test.test1@gmail.com</firstEmail>
     <thirdEmail>test1@gmail.com</thirdEmail>
     <address>Street-street 12/3, b.1</address>
     <group>test 1</group>
@@ -24,7 +24,7 @@
     <lastname>Lastname 2</lastname>
     <phone__home>+373(22) 11-22-33-2</phone__home>
     <phone__work>111 222 33 2</phone__work>
-    <secondEmail>test.test2@gmail.com</secondEmail>
+    <firstEmail>test.test2@gmail.com</firstEmail>
     <thirdEmail>test2@gmail.com</thirdEmail>
     <address>Street-street 12/3, b.2</address>
     <group>test 2</group>

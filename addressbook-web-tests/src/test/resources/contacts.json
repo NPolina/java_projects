@@ -4,7 +4,7 @@
     "lastname": "Lastname 0",
     "phone_home": "+373(22) 11-22-33-0",
     "phone_work": "111 222 33 0",
-    "secondEmail": "test.test0@gmail.com",
+    "firstEmail": "test.test0@gmail.com",
     "thirdEmail": "test0@gmail.com",
     "address": "Street-street 12/3, b.0",
     "group": "test 0"
@@ -14,7 +14,7 @@
     "lastname": "Lastname 1",
     "phone_home": "+373(22) 11-22-33-1",
     "phone_work": "111 222 33 1",
-    "secondEmail": "test.test1@gmail.com",
+    "firstEmail": "test.test1@gmail.com",
     "thirdEmail": "test1@gmail.com",
     "address": "Street-street 12/3, b.1",
     "group": "test 1"
@@ -24,7 +24,7 @@
     "lastname": "Lastname 2",
     "phone_home": "+373(22) 11-22-33-2",
     "phone_work": "111 222 33 2",
-    "secondEmail": "test.test2@gmail.com",
+    "firstEmail": "test.test2@gmail.com",
     "thirdEmail": "test2@gmail.com",
     "address": "Street-street 12/3, b.2",
     "group": "test 2"

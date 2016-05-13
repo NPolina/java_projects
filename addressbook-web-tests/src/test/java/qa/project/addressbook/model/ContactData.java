@@ -22,8 +22,8 @@ public class ContactData {
     private String phone_mobile;
     @Expose
     private String phone_work;
-    private String firstEmail;
     @Expose
+    private String firstEmail;
     private String secondEmail;
     @Expose
     private String thirdEmail;
