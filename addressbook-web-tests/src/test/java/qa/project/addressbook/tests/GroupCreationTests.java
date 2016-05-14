@@ -8,8 +8,9 @@ import org.testng.annotations.Test;
 import qa.project.addressbook.model.GroupData;
 import qa.project.addressbook.model.Groups;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
-
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
         try(BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"))) {
