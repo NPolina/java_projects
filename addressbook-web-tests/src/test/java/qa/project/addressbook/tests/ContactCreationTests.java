@@ -55,6 +55,7 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
+        app.goTo().homePage();
         Contacts before = app.contact().all();
         app.goTo().addContactPage();
         File photo = new File("src/test/resources/smile.png");

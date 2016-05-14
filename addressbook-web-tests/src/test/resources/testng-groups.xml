@@ -1,0 +1,9 @@
+<suite name="Suite1" verbose="1" >
+    <test name="Groups" >
+        <classes>
+            <class name="qa.project.addressbook.tests.GroupCreationTests" />
+            <class name="qa.project.addressbook.tests.GroupModificationTests" />
+            <class name="qa.project.addressbook.tests.GroupDeletionTests" />
+        </classes>
+    </test>
+</suite>
