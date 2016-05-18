@@ -57,29 +57,28 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file);
+        try(Writer writer = new FileWriter(file)){
         writer.write(json);
-        writer.close();
+        }
     }
 
     private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
         XStream xstream = new XStream();
         xstream.processAnnotations(ContactData.class);
         String xml = xstream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try(Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
     private List<ContactData> generateContacts(int count){
         List<ContactData> contacts = new ArrayList<ContactData>();
-        File image = new File("src/test/resources/smile.png");
-        String url = image.getAbsolutePath();
         for(int i = 0; i < count; i++){
             contacts.add(new ContactData().withFirstname(String.format("Firstname %s;", i)).withLastname(String.format("Lastname %s", i))
                     .withHomePhone(String.format("+373(22) 11-22-33-%s", i)).withWorkPhone(String.format("111 222 33 %s", i))
                     .withAddress((String.format("Street-street 12/3, b.%s", i))).withFirstEmail(String.format("test.test%s@gmail.com", i))
-                    .withThirdEmail(String.format("test%s@gmail.com", i)).withGroup(String.format("test %s", i)));
+                    .withThirdEmail(String.format("test%s@gmail.com", i)).withGroup(String.format("test %s", i))
+                    .withPhoto("src/test/resources/smile.png"));
         }
         return contacts;
     }

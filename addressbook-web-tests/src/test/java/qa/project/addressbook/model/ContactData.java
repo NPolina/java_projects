@@ -31,11 +31,29 @@ public class ContactData {
     @Expose
     private String address;
     private String detailsInfo;
-    private File photo;
+    @Expose
+    private String photo;
     @Expose
     private String group;
 
-    public File getPhoto() { return photo; }
+    public String getPhoto() { return photo; }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", phone_home='" + phone_home + '\'' +
+                ", phone_mobile='" + phone_mobile + '\'' +
+                ", phone_work='" + phone_work + '\'' +
+                ", firstEmail='" + firstEmail + '\'' +
+                ", secondEmail='" + secondEmail + '\'' +
+                ", thirdEmail='" + thirdEmail + '\'' +
+                ", address='" + address + '\'' +
+                ", group='" + group + '\'' +
+                '}';
+    }
 
     public String getDetailsInfo() { return detailsInfo; }
 
@@ -143,16 +161,9 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withPhoto(File photo) {
+    public ContactData withPhoto(String photo) {
         this.photo = photo;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                '}';
     }
 
     @Override

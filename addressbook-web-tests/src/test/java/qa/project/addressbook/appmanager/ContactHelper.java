@@ -140,19 +140,19 @@ public class ContactHelper extends HelperBase{
     }
 
     public ContactData infoContactDetails(ContactData contact) {
-        String infoContact;
         String content;
         viewContactInformationById(contact.getId());
         content = wd.findElement(By.xpath(".//div[@id='content']")).getText();
-        if(isElementPresent(By.xpath(".//i"))){
+        if(isElementPresent(By.xpath(".//i")) && isElementPresent(By.xpath(".//*[@id='content']//*[contains(@href,'http')]"))){
             String group = wd.findElement(By.xpath(".//i")).getText();
-            infoContact = content.replace(group, "");
-        }
-        else {
-            infoContact = content;
+            List<WebElement> el = wd.findElements(By.xpath(".//*[@id='content']//*[contains(@href,'http')]"));
+            for (WebElement i : el){
+                content = content.replace(i.getText(), "");
+            }
+            content = content.replace(group, "");
         }
         wd.navigate().back();
-        return new ContactData().withDetailsInfo(infoContact);
+        return new ContactData().withDetailsInfo(content);
 
     }
 
