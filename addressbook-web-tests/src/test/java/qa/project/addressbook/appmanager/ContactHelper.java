@@ -1,5 +1,6 @@
 package qa.project.addressbook.appmanager;
 
+import com.sun.javafx.binding.StringFormatter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -74,8 +75,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void selectContactToEdit(int id) {
-        WebElement checkbox = wd.findElement(By.id("" + id));
-        checkbox.findElement(By.xpath("//img[@title='Edit']")).click();
+        wd.findElement(By.xpath("//*[@href='edit.php?id=" + id + "']")).click();
     }
 
     public void selectContactById(int id){

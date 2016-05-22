@@ -6,12 +6,12 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.io.File;
+
 @Entity
 @Table(name = "addressbook")
 @XStreamAlias("contact")
 
-public class ContactData {
+public class ContactData{
 
     @XStreamOmitField
     @Id
@@ -28,6 +28,7 @@ public class ContactData {
     @Type(type = "text")
     private String phone_home;
 
+    @Expose
     @Column(name = "mobile")
     @Type(type = "text")
     private String phone_mobile;
@@ -42,6 +43,7 @@ public class ContactData {
     @Type(type = "text")
     private String firstEmail;
 
+    @Expose
     @Column(name = "email2")
     @Type(type = "text")
     private String secondEmail;
@@ -66,8 +68,7 @@ public class ContactData {
     private String detailsInfo;
 
     @Expose
-    @Column(name = "photo")
-    @Type(type = "text")
+    @Transient
     private String photo;
 
     @Expose
@@ -75,23 +76,6 @@ public class ContactData {
     private String group;
 
     public String getPhoto() { return photo; }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", phone_home='" + phone_home + '\'' +
-                ", phone_mobile='" + phone_mobile + '\'' +
-                ", phone_work='" + phone_work + '\'' +
-                ", firstEmail='" + firstEmail + '\'' +
-                ", secondEmail='" + secondEmail + '\'' +
-                ", thirdEmail='" + thirdEmail + '\'' +
-                ", address='" + address + '\'' +
-                ", group='" + group + '\'' +
-                '}';
-    }
 
     public String getDetailsInfo() { return detailsInfo; }
 
@@ -213,7 +197,14 @@ public class ContactData {
 
         if (id != that.id) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+        if (phone_home != null ? !phone_home.equals(that.phone_home) : that.phone_home != null) return false;
+        if (phone_mobile != null ? !phone_mobile.equals(that.phone_mobile) : that.phone_mobile != null) return false;
+        if (phone_work != null ? !phone_work.equals(that.phone_work) : that.phone_work != null) return false;
+        if (firstEmail != null ? !firstEmail.equals(that.firstEmail) : that.firstEmail != null) return false;
+        if (secondEmail != null ? !secondEmail.equals(that.secondEmail) : that.secondEmail != null) return false;
+        if (thirdEmail != null ? !thirdEmail.equals(that.thirdEmail) : that.thirdEmail != null) return false;
+        return address != null ? address.equals(that.address) : that.address == null;
 
     }
 
@@ -222,8 +213,31 @@ public class ContactData {
         int result = id;
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (phone_home != null ? phone_home.hashCode() : 0);
+        result = 31 * result + (phone_mobile != null ? phone_mobile.hashCode() : 0);
+        result = 31 * result + (phone_work != null ? phone_work.hashCode() : 0);
+        result = 31 * result + (firstEmail != null ? firstEmail.hashCode() : 0);
+        result = 31 * result + (secondEmail != null ? secondEmail.hashCode() : 0);
+        result = 31 * result + (thirdEmail != null ? thirdEmail.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", phone_home='" + phone_home + '\'' +
+                ", phone_mobile='" + phone_mobile + '\'' +
+                ", phone_work='" + phone_work + '\'' +
+                ", firstEmail='" + firstEmail + '\'' +
+                ", secondEmail='" + secondEmail + '\'' +
+                ", thirdEmail='" + thirdEmail + '\'' +
+                ", address='" + address + '\'' +
+                ", group='" + group + '\'' +
+                '}';
+    }
 
 }
