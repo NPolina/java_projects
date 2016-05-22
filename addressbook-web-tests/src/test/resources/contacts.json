@@ -9,8 +9,7 @@
     "secondEmail": "test0@test.dd",
     "thirdEmail": "test0@gmail.com",
     "address": "Street-street 12/3, b.0",
-    "photo": "src/test/resources/smile.png",
-    "group": "test 0"
+    "photo": "src/test/resources/smile.png"
   },
   {
     "firstname": "Firstname 1;",
@@ -22,8 +21,7 @@
     "secondEmail": "test1@test.dd",
     "thirdEmail": "test1@gmail.com",
     "address": "Street-street 12/3, b.1",
-    "photo": "src/test/resources/smile.png",
-    "group": "test 1"
+    "photo": "src/test/resources/smile.png"
   },
   {
     "firstname": "Firstname 2;",
@@ -35,8 +33,7 @@
     "secondEmail": "test2@test.dd",
     "thirdEmail": "test2@gmail.com",
     "address": "Street-street 12/3, b.2",
-    "photo": "src/test/resources/smile.png",
-    "group": "test 2"
+    "photo": "src/test/resources/smile.png"
   },
   {
     "firstname": "Firstname 3;",
@@ -48,8 +45,7 @@
     "secondEmail": "test3@test.dd",
     "thirdEmail": "test3@gmail.com",
     "address": "Street-street 12/3, b.3",
-    "photo": "src/test/resources/smile.png",
-    "group": "test 3"
+    "photo": "src/test/resources/smile.png"
   },
   {
     "firstname": "Firstname 4;",
@@ -61,8 +57,7 @@
     "secondEmail": "test4@test.dd",
     "thirdEmail": "test4@gmail.com",
     "address": "Street-street 12/3, b.4",
-    "photo": "src/test/resources/smile.png",
-    "group": "test 4"
+    "photo": "src/test/resources/smile.png"
   },
   {
     "firstname": "Firstname 5;",
@@ -74,7 +69,6 @@
     "secondEmail": "test5@test.dd",
     "thirdEmail": "test5@gmail.com",
     "address": "Street-street 12/3, b.5",
-    "photo": "src/test/resources/smile.png",
-    "group": "test 5"
+    "photo": "src/test/resources/smile.png"
   }
 ]

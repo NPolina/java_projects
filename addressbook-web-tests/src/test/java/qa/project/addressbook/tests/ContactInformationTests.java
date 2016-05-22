@@ -24,7 +24,7 @@ public class ContactInformationTests extends TestBase {
                     withFirstname("Nazarova").withLastname("Polina")
                     .withAddress("Test1, test2 3/3 test-1234")
                     .withFirstEmail(" nazarova.polina@gmail.com").withThirdEmail("test12_te@gmail.com")
-                    .withHomePhone("+(11)-11").withWorkPhone(" 3 33").withGroup("test11"));
+                    .withHomePhone("+(11)-11").withWorkPhone(" 3 33"));
         }
     }
 

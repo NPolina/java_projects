@@ -6,6 +6,8 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -71,9 +73,10 @@ public class ContactData{
     @Transient
     private String photo;
 
-    @Expose
-    @Transient
-    private String group;
+    @ManyToMany
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public String getPhoto() { return photo; }
 
@@ -101,8 +104,6 @@ public class ContactData{
 
     public String getEmails() { return emails; }
 
-    public String getGroup() { return group;}
-
     public int getId() {
         return id;
     }
@@ -112,6 +113,10 @@ public class ContactData{
     public String getPhoneWork() { return phone_work; }
 
     public String getAddress() { return address; }
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
 
     public ContactData withId(int id) {
         this.id = id;
@@ -150,11 +155,6 @@ public class ContactData{
 
     public ContactData withFirstEmail(String email) {
         this.firstEmail = email;
-        return this;
-    }
-
-    public ContactData withGroup(String group) {
-        this.group = group;
         return this;
     }
 
@@ -236,8 +236,11 @@ public class ContactData{
                 ", secondEmail='" + secondEmail + '\'' +
                 ", thirdEmail='" + thirdEmail + '\'' +
                 ", address='" + address + '\'' +
-                ", group='" + group + '\'' +
                 '}';
     }
 
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 }

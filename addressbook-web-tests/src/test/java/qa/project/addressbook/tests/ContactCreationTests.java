@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import qa.project.addressbook.model.ContactData;
 import qa.project.addressbook.model.Contacts;
 import qa.project.addressbook.model.GroupData;
+import qa.project.addressbook.model.Groups;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +22,14 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactCreationTests extends TestBase {
+
+    @BeforeMethod
+    private void ensurePreconditions() {
+        app.goTo().groupPage();
+        if (app.db().groups().size() == 0) {
+            app.group().create(new GroupData().withName("test 0"));
+        }
+    }
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
@@ -55,14 +64,16 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
-        app.goTo().homePage();
         Contacts before = app.db().contacts();
+        app.goTo().homePage();
         app.goTo().addContactPage();
-        app.contact().create(contact);
+        Groups groups = app.db().groups();
+        app.contact().create(contact.inGroup(groups.iterator().next()));
         Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo
                 (before.withAdded(contact.withId(after.stream().mapToInt(g->g.getId()).max().getAsInt()))));
+        verifyContactListInUI();
     }
 
 }

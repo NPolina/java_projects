@@ -21,7 +21,7 @@ public class ContactModificationTests extends TestBase {
             app.goTo().addContactPage();
             app.contact().create(new ContactData().
                     withFirstname("Nazarova").withLastname("Polina").withPhone("373112233")
-                    .withFirstEmail("nazarova.polina@gmail.com").withGroup("test 0").withPhoto("src/test/resources/smile.png"));
+                    .withFirstEmail("nazarova.polina@gmail.com").withPhoto("src/test/resources/smile.png"));
         }
     }
 
