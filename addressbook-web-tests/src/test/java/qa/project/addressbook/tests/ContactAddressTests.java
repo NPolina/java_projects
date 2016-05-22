@@ -18,7 +18,8 @@ public class ContactAddressTests extends TestBase {
         if (app.contact().all().size() == 0) {
             app.goTo().addContactPage();
             app.contact().create(new ContactData().
-                    withFirstname("Nazarova").withLastname("Polina").withAddress("Test1, test2 3/3\n" + "<br/>\n" + "test-1234").withGroup("test1"));
+                    withFirstname("Nazarova").withLastname("Polina").withAddress("Test1, test2 3/3\n" + "<br/>\n" + "test-1234")
+                    .withGroup("test 1").withPhoto("src/test/resources/smile.png"));
         }
     }
 
