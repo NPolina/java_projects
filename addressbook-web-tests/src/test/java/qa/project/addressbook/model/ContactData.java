@@ -189,41 +189,6 @@ public class ContactData{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-        if (phone_home != null ? !phone_home.equals(that.phone_home) : that.phone_home != null) return false;
-        if (phone_mobile != null ? !phone_mobile.equals(that.phone_mobile) : that.phone_mobile != null) return false;
-        if (phone_work != null ? !phone_work.equals(that.phone_work) : that.phone_work != null) return false;
-        if (firstEmail != null ? !firstEmail.equals(that.firstEmail) : that.firstEmail != null) return false;
-        if (secondEmail != null ? !secondEmail.equals(that.secondEmail) : that.secondEmail != null) return false;
-        if (thirdEmail != null ? !thirdEmail.equals(that.thirdEmail) : that.thirdEmail != null) return false;
-        return address != null ? address.equals(that.address) : that.address == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        result = 31 * result + (phone_home != null ? phone_home.hashCode() : 0);
-        result = 31 * result + (phone_mobile != null ? phone_mobile.hashCode() : 0);
-        result = 31 * result + (phone_work != null ? phone_work.hashCode() : 0);
-        result = 31 * result + (firstEmail != null ? firstEmail.hashCode() : 0);
-        result = 31 * result + (secondEmail != null ? secondEmail.hashCode() : 0);
-        result = 31 * result + (thirdEmail != null ? thirdEmail.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
@@ -237,6 +202,27 @@ public class ContactData{
                 ", thirdEmail='" + thirdEmail + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (id != that.id) return false;
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
     }
 
     public ContactData inGroup(GroupData group) {

@@ -1,6 +1,5 @@
 package qa.project.addressbook.appmanager;
 
-import com.sun.javafx.binding.StringFormatter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,35 +7,36 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import qa.project.addressbook.model.ContactData;
 import qa.project.addressbook.model.Contacts;
+import qa.project.addressbook.model.GroupData;
 
 import java.util.List;
 
 /**
  * Created by user on 16.04.2016.
  */
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
 
     public void fillContactForm(ContactData contactData, boolean creation) {
-        type(By.name("firstname"),contactData.getFirstname());
-        type(By.name("lastname"),contactData.getLastname());
-        type(By.name("home"),contactData.getPhoneHome());
-        type(By.name("mobile"),contactData.getPhoneMobile());
-        type(By.name("work"),contactData.getPhoneWork());
-        type(By.name("email"),contactData.getFirstEmail());
-        type(By.name("email2"),contactData.getSecondEmail());
-        type(By.name("email3"),contactData.getThirdEmail());
-        type(By.name("address"),contactData.getAddress());
+        type(By.name("firstname"), contactData.getFirstname());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("home"), contactData.getPhoneHome());
+        type(By.name("mobile"), contactData.getPhoneMobile());
+        type(By.name("work"), contactData.getPhoneWork());
+        type(By.name("email"), contactData.getFirstEmail());
+        type(By.name("email2"), contactData.getSecondEmail());
+        type(By.name("email3"), contactData.getThirdEmail());
+        type(By.name("address"), contactData.getAddress());
         attach(By.name("photo"), contactData.getPhoto());
 
         if(creation){
             if(contactData.getGroups().size() > 0){
                 Assert.assertTrue(contactData.getGroups().size() == 1);
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-         }
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -81,8 +81,8 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.xpath("//*[@href='edit.php?id=" + id + "']")).click();
     }
 
-    public void selectContactById(int id){
-        wd.findElement(By.cssSelector("input[value='"+ id +"']")).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.xpath("//input[@value='" + id + "']")).click();
     }
 
     public void modify(ContactData contact) {
@@ -98,13 +98,13 @@ public class ContactHelper extends HelperBase{
         Thread.sleep(5000);
     }
 
-    public boolean isThereAContact() {
-        return isElementPresent(By.name("selected[]"));
+    public boolean isThereAContact(int id) {
+        return isElementPresent(By.cssSelector("input[value='" + id + "']"));
     }
 
-    public int getContactCount() {
+   /* public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
-    }
+    }*/
 
 
     public Contacts all() {
@@ -146,10 +146,10 @@ public class ContactHelper extends HelperBase{
         String content;
         viewContactInformationById(contact.getId());
         content = wd.findElement(By.xpath(".//div[@id='content']")).getText();
-        if(isElementPresent(By.xpath(".//i")) && isElementPresent(By.xpath(".//*[@id='content']//*[contains(@href,'http')]"))){
+        if (isElementPresent(By.xpath(".//i")) && isElementPresent(By.xpath(".//*[@id='content']//*[contains(@href,'http')]"))) {
             String group = wd.findElement(By.xpath(".//i")).getText();
             List<WebElement> el = wd.findElements(By.xpath(".//*[@id='content']//*[contains(@href,'http')]"));
-            for (WebElement i : el){
+            for (WebElement i : el) {
                 content = content.replace(i.getText(), "");
             }
             content = content.replace(group, "");
@@ -164,7 +164,7 @@ public class ContactHelper extends HelperBase{
         element.findElement(By.xpath("//img[@title='Details']")).click();
     }
 
-    public void modifyContactDetails(){
+    public void modifyContactDetails() {
         wd.findElement(By.name("modifiy")).click();
     }
 
@@ -185,5 +185,35 @@ public class ContactHelper extends HelperBase{
                 withFirstname(firstname).withLastname(lasttname).withAddress(address)
                 .withHomePhone(home_phone).withPhone(mobile_phone).withWorkPhone(work_phone)
                 .withFirstEmail(firstEmail).withSecondEmail(secondEmail).withThirdEmail(thirdEmail);
+    }
+
+    public void addContactInGroup(ContactData contact, GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+        selectContactById(contact.getId());
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        wd.findElement(By.xpath("//*[@name='add']")).click();
+        wd.findElement(By.xpath("//*[@class='msgbox']//a")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+    }
+
+    public void deleteContactFromGroup(ContactData contact, GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        selectContactById(contact.getId());
+        wd.findElement(By.xpath("//*[@name='remove']")).click();
+        wd.findElement(By.xpath("//*[@class='msgbox']//a")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+    }
+
+    public Contacts contactsFromGroupPage(GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        Contacts contacts = new Contacts();
+        contacts = all();
+        return contacts;
+    }
+
+    public boolean existsInGroup(GroupData group, ContactData contact) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        if (isThereAContact(contact.getId())) { return true;
+        } else{ return false; }
     }
 }
