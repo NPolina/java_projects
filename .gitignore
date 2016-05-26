@@ -12,3 +12,5 @@ gradle-app.setting
 .idea/workspace.xml
 *.log
 *.iml
+.idea/gradle.xml
+*.exe
