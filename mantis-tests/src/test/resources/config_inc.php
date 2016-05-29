@@ -8,4 +8,4 @@ $g_signup_use_captcha = OFF;
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP;
 $g_smtp_host = 'localhost';
 $g_log_level = LOG_EMAIL | LOG_EMAIL_RECIPIENT | LOG_DATABASE;
-$g_log_destination = 'file:/xampp/htdocs/mantisbt1.log';
+$g_log_destination = 'file:/Work/java_projects/mantis-tests/mantisbt.log';
