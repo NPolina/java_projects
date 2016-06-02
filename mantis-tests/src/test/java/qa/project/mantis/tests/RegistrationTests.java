@@ -36,7 +36,7 @@ public class RegistrationTests extends TestBase {
         //отправка писем через встроенный почтовый сервер
        // List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
 
-        //отправка писем через внешний сервер telnet
+        //отправка писем через внешний сервер james по протоколу telnet
         List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, password);

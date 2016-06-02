@@ -15,3 +15,8 @@ gradle-app.setting
 .idea/gradle.xml
 *.exe
 *.xml
+soap-sample/gradlew
+soap-sample/gradlew.bat
+soap-sample/build.gradle
+soap-sample/gradle/wrapper/gradle-wrapper.properties
+soap-sample/gradle/wrapper/gradle-wrapper.jar
