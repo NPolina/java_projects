@@ -9,6 +9,18 @@ public class Issue {
     private String summary;
     private String description;
     private Project project;
+    private Resolution resolution;
+
+
+    public Issue withResolution(Resolution resolution) {
+        this.resolution = resolution;
+        return this;
+    }
+
+    public Resolution getResolution() {
+
+        return resolution;
+    }
 
     public int getId() {
         return id;
@@ -44,5 +56,16 @@ public class Issue {
     public Issue withProject(Project project) {
         this.project = project;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "id=" + id +
+                ", summary='" + summary + '\'' +
+                ", description='" + description + '\'' +
+                ", project=" + project +
+                ", resolution=" + resolution +
+                '}';
     }
 }

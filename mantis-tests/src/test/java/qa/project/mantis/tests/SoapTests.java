@@ -1,11 +1,13 @@
 package qa.project.mantis.tests;
 
+import biz.futureware.mantis.rpc.soap.client.IssueData;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
 import biz.futureware.mantis.rpc.soap.client.ProjectData;
 import org.testng.annotations.Test;
 import qa.project.mantis.model.Issue;
 import qa.project.mantis.model.Project;
+import qa.project.mantis.model.Resolution;
 
 import javax.xml.rpc.ServiceException;
 import java.net.MalformedURLException;
@@ -36,5 +38,13 @@ public class SoapTests extends TestBase{
                 .withDescription("Test issue description").withProject(projects.iterator().next());
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSummary(), created.getSummary());
+    }
+
+    @Test
+    public void testIsIssueFixedOrNot() throws RemoteException, ServiceException, MalformedURLException {
+        Set<Project> projects = app.soap().getProjects();
+        Set<Issue> issues = app.soap().getIssuesInProject(projects.iterator().next());
+        skipIfNotFixed(issues.iterator().next().getId());
+        System.out.println("Issue is fixed!");
     }
 }

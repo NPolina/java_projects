@@ -1,11 +1,9 @@
 package qa.project.mantis.model;
 
-import com.beust.jcommander.Parameter;
-
 /**
  * Created by user on 02.06.2016.
  */
-public class Project {
+public class Resolution {
 
     private int id;
     private String name;
@@ -14,23 +12,23 @@ public class Project {
         return id;
     }
 
-    public Project withId(int id) {
+    public Resolution withId(int id) {
         this.id = id;
         return this;
     }
 
-    public String  getName() {
+    public String getName() {
         return name;
     }
 
-    public Project withName(String name) {
+    public Resolution withName(String name) {
         this.name = name;
         return this;
     }
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Resolution{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
